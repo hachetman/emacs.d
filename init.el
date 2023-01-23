@@ -5,8 +5,6 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (expt 2 23))))
-(setq user-full-name "Christian Grumbein"
-      user-mail-address "christian@grumbein.de")
 (setq make-backup-files nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-display-line-numbers-mode 1)
@@ -38,6 +36,14 @@
 (scroll-bar-mode -1)
 (set-window-scroll-bars (minibuffer-window) nil nil)
 
+(use-package exec-path-from-shell
+  :ensure t
+  :if (memq window-system '(mac ns x))
+  :config
+  (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
+  (exec-path-from-shell-initialize))
+(setq user-full-name "Christian Grumbein"
+      user-mail-address "christian@grumbein.de")
 (load-file "~/.emacs.d/lisp/theme.el")
 (load-file "~/.emacs.d/lisp/magit.el")
 (load-file "~/.emacs.d/lisp/recentf.el")
